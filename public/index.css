@@ -1,0 +1,21 @@
+body, #bodyNav{
+  background-image: url(/img/background/fon2.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container{
+ min-height: 45vh;
+}
+.titleToast{
+  color:white;
+}
+.bgToast{
+  background-color: #2c4d8c;
+}
+
+.price {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}

@@ -1,0 +1,219 @@
+<div class="container text-light">
+  <div class="d-flex align-items-start">
+    <div
+      class="nav flex-column nav-pills mt-5 me-5"
+      id="v-pills-tab"
+      role="tablist"
+      aria-orientation="vertical"
+    >
+      <button
+        class="nav-link link-light active"
+        id="v-pills-addItem-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-addItem"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-addItem"
+        aria-selected="true"
+      >Добавить товар</button>
+      <button
+        class="nav-link link-light"
+        id="v-pills-sklad-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-sklad"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-sklad"
+        aria-selected="false"
+      >Склад товара</button>
+      <button
+        class="nav-link link-light"
+        id="v-pills-valueOrders-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-valueOrders"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-valueOrders"
+        aria-selected="false"
+      >Количество Заказов
+        <span
+          class="badge bg-danger rounded-pill"
+        >{{orders.length}}</span></button>
+      <button
+        class="nav-link link-light"
+        id="v-pills-users-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-users"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-users"
+        aria-selected="false"
+      >Реестр пользователей</button>
+    </div>
+
+    <div class="tab-content w-75" id="v-pills-tabContent">
+      {{#if error}}
+        <p class="alert">{{error}}</p>
+      {{/if}}
+      <div
+        class="tab-pane fade show active"
+        id="v-pills-addItem"
+        role="tabpanel"
+        aria-labelledby="v-pills-addItem-tab"
+      >
+        <div class="mt-3">
+          <form action="/panel" method="POST" novalidate>
+            <h2 class="text-center">Добавить товар</h2>
+            <hr />
+            <div>
+              <label for="title">Наименование</label>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                class="form-control"
+                value="{{data.title}}"
+                required
+              />
+              <span class="helper-text" data-error="Введите название"></span>
+            </div>
+            <div>
+              <label for="price">Стоимость за кг</label>
+              <input
+                id="price"
+                name="price"
+                type="number"
+                class="form-control"
+                required
+                min="1"
+                value="{{data.price}}"
+              />
+              <span
+                class="helper-text"
+                data-error="Введите цену товара за кг"
+              ></span>
+            </div>
+            <div>
+              <label for="value">Объем</label>
+              <input
+                id="value"
+                name="value"
+                type="number"
+                class="form-control"
+                value="{{data.value}}"
+                required
+              />
+              <span class="helper-text" data-error="Введите вес"></span>
+            </div>
+            <div>
+              <label for="img">Фото товар</label>
+              <input
+                id="img"
+                name="img"
+                type="text"
+                class="form-control"
+                value="{{data.img}}"
+                required
+              />
+              <span class="helper-text" data-error="Введите фото товар"></span>
+            </div>
+            <input type="hidden" name="_csrf" value={{csrf}} />
+            <button class="btn btn-outline-light mt-3">Добавить</button>
+          </form>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="v-pills-sklad"
+        role="tabpanel"
+        aria-labelledby="v-pills-sklad-tab"
+      >
+        <h2 class="text-center mt-3">Склад товара</h2>
+        <hr />
+        <table class="table align-center text-light">
+          <thead>
+            <tr>
+              <th>Товар</th>
+              <th></th>
+              <th>Кол-во на остатке</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each products}}
+              <tr>
+                <td>{{title}}</td>
+                <td></td>
+                <td>{{value}}
+                  гр
+                  <div class="text-end">
+                    <progress value={{value}} max="1000"></progress>
+                  </div>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="tab-pane text-light fade mt-3"
+        id="v-pills-valueOrders"
+        role="tabpanel"
+        aria-labelledby="v-pills-valueOrders-tab"
+      >
+        <table class="table text-light">
+          {{#each orders}}
+            <thead>
+              <th>Номер заказа: {{numberOrder}}</th>
+              <th></th>
+              <th></th>
+            </thead>
+            <tbody>
+              {{#each products}}
+                <tr>
+                  <td>{{product.title}}</td>
+                  <td>{{productValue}} гр</td>
+                  <td></td>
+                </tr>
+              {{/each}}
+            </tbody>
+          {{/each}}
+        </table>
+      </div>
+      <div
+        class="tab-pane fade mt-3 text-light"
+        id="v-pills-users"
+        role="tabpanel"
+        aria-labelledby="v-pills-users-tab"
+      >
+        <h2 class="text-center">Реестр пользователей</h2>
+        <hr />
+        <table class="table text-light">
+          <thead>
+            <tr>
+              <th>Пользователь</th>
+              <th>Email</th>
+              <th>Администратор</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each users}}
+              <tr>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td>{{isAdmin}}</td>
+                <td>
+                  <form action="/panel/deleteUser" method="POST">
+                    <input type="hidden" name="id" value={{id}} />
+                    <input type="hidden" name="_csrf" value={{@root.csrf}} />
+                    <button class="btn btn-outline-light">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

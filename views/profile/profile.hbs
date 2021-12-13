@@ -1,0 +1,73 @@
+<div class="container mt-3 mb-3">
+  <div class="text-light">
+    <div class="row">
+      <div class="col">
+        {{#if user.avatarURL}}
+          <img class="avatar" width="300" src="{{user.avatarURL}}" alt="" />
+        {{else}}
+          <img
+            class="avatar"
+            src="https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol.png"
+          />
+        {{/if}}
+      </div>
+      <div class="col p-2">
+        <form action="/profile" method="POST" enctype="multipart/form-data">
+          {{#if errorEdit}}
+            <p class="alert">{{errorEdit}}</p>
+          {{/if}}
+          <p>Ваш email: <strong>{{user.email}}</strong></p>
+          <div class="mb-3">
+            <label for="name">Ваше имя</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              class="validate form-control w-50"
+              required
+              value="{{user.name}}"
+            />
+            <span class="helper-text" data-error="Введите имя"></span>
+          </div>
+          <div class="mb-3">
+            <label for="phone">Ваш телефон</label>
+            <input
+              id="phone"
+              name="phone"
+              type="number"
+              class="validate form-control w-50"
+              maxlength="11"
+              required
+              value="{{user.phone}}"
+            />
+            <span class="helper-text" data-error="Введите имя"></span>
+          </div>
+          <div class="mb-3">
+            <label for="adress">Адрес доставки</label>
+            <input
+              id="adress"
+              name="adress"
+              type="text"
+              class="validate form-control w-50"
+              required
+              value="{{user.adress}}"
+            />
+            <span class="helper-text" data-error="Введите имя"></span>
+          </div>
+          <div>
+            <div class="js-upload">
+              <input
+                class="form-control w-50 mt-3"
+                type="file"
+                name="avatar"
+                multiple
+              />
+            </div>
+          </div>
+          <input type="hidden" name="_csrf" value="{{@root.csrf}}" />
+          <button class="btn btn-primary mt-3 mb-5">Обновить информацию</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

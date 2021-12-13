@@ -1,0 +1,62 @@
+ {{#if orders.length}}
+<div class="container text-light">
+  <h1 class="text-center mt-3">Заказы</h1>
+  <hr>
+    <div class="m-3 p-3">
+      <table class="table text-light align-middle">
+            <thead class="text-center">
+              <th>№ Заказа</th>
+              <th>Дата</th>
+              <th>Адрес доставки</th>
+              <th>Список</th>
+              <th>Цена</th>
+              <th>Статус заказа</th>
+            </thead>
+            {{#each orders}}
+            <tbody>
+              <tr>
+                <td class="text-center">{{numberOrder}}</td>
+                <td class="date">{{date}}</td>
+                <td>{{user.userId.adress}}</td>
+                <td>
+                  <ol>
+                  {{#each products}}
+                    <li>{{product.title}}(<strong>{{productValue}} гр</strong>)</li>
+                  {{/each}}
+                  </ol>
+                </td>
+                <td class="price">{{price}}</td>
+                <td class="">
+                  <form action="/orders/paycard" method="post">
+                    <input type="hidden" name="_csrf" value={{@root.csrf}}>
+                    <input type="hidden" name="name" value="{{user.name}}">
+                    <input type="hidden" name="email" value="{{user.userId.email}}">
+                    <input type="hidden" name="ardess" value="{{user.userId.adress}}">
+                    <input type="hidden" name="orderNumber" value="{{numberOrder}}">
+                    <input type="hidden" name="userName" value="{{@root.login}}">
+                    <input type="hidden" name="password" value="{{@root.password}}">
+                    <input type="hidden" name="amount" value={{price}}>
+                    {{#each products}}
+                    <input type="hidden" name="description" value="{{product.title}}({{productValue}} гр)">
+                    {{/each}}
+                    <input type="hidden" name="returnUrl" value="https://www.snackcase.ru/orders/successfully/{{_id}}">
+                    <input type="hidden" name="failUrl" value="https://www.snackcase.ru/orders/failpay">
+                    {{#if payment}}
+                    <strong>
+                      <em>Заказ Оплачен</em>
+                    </strong>
+                    {{else}}
+                    <button class="btn btn-outline-light">Перейти к оплате</button>
+                    {{/if}}
+                  </form>
+                  </td> 
+              </tr>
+            </tbody>
+          {{/each}}
+        </table>
+    </div>    
+  {{else}}
+    <h2 class="text-center text-light">Заказов нет</h2>
+  {{/if}}
+</div>
+

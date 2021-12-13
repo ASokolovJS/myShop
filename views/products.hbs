@@ -1,0 +1,126 @@
+<div class="container mh-100">
+  <h1 class="text-center mt-3 mb-5 text-light">Товары</h1>
+{{#if products.length}}
+  <div class="row justify-content-center">
+  {{#each products}}
+   <div class="card col-sm-5 mx-4 mb-5 shadow bg-light bg-opacity-75">
+     <div class="row">
+       <div class="col-6">
+        <div class="colum text-center">
+          <div class="col mt-2">
+            <img class="img-fluid rounded" src="{{img}}">
+          </div>
+         <div class="col">
+           <div class="row">
+            <div class="col mt-3 mb-3">
+              <a class="btn btn-primary btn-sm w-100" href="/products/{{id}}">Подробнее</a>
+            </div>
+            {{#if @root.isAuth}}
+            <div class="col mt-3 mb-3">
+              <a class="btn btn-primary btn-sm" href="/products/{{id}}/edit?allow=true">Редактировать</a>
+            </div>
+            {{/if}}
+           </div>
+         </div>
+        </div>
+       </div>
+       <div class="col">
+         <div class="colum">
+           <div class="col">
+             <div class="row">
+               <div class="col">
+                <h3 class="card-title text-center mt-3">{{title}}</h3>
+                <hr>
+               </div>
+             </div>
+           </div>
+           {{#if @root.isAuth}}
+            {{#if value}}
+           <div class="col mt-3 text-center">
+            <small>
+              <em>Укажите кол-во грамм:</em>
+            </small>
+            <input
+            class="inputCount form-control w-75 mx-4"
+            name="count"
+            value="50" 
+            type="number" 
+            step="50" 
+            min="50" 
+            max={{value}}
+          >
+           <div class="col mt-4">
+              <button
+              id="liveToastBtn" 
+              class="addBtn btn btn-primary w-100"
+              type="submit" 
+            >В корзину</button>
+            <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+              <div id="liveToast" class="toast bgToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="titleToast">Корзина</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                </div>
+                <div class="toast-body">
+                  Товар <b>{{title}}</b> добавлен в корзину!
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+           </div>
+            {{else}}
+            <div class="col text-center">
+              <h4>Ожидаем поступления</h4>
+            </div>
+            <hr> 
+            {{/if}}
+           {{/if}}
+        <input type="hidden" name="id" value="{{id}}">
+        <input id="csrf" type="hidden" name="_csrf" value={{@root.csrf}}>
+        </form>
+        </div>
+           <div class="col mt-3">
+            {{#if value}}
+            <div class="row">
+              <div class="col">
+                <strong class="price">{{price}}</strong>
+              </div>
+              <div class="col text-end">
+                <small>
+                  <em >Доступно {{value}} гр</em>
+                </small>
+              </div>
+            </div>
+            <div class="text-end mt-3">
+              <small><em >* Цена указана за 100 грамм</em></small>
+            </div>
+              {{else}}
+              <div class="col">
+                <strong class="price">{{price}}</strong>
+                <div class="text-end">
+                  <small>
+                    <em>* Цена указана за 100 грамм</em>
+                  </small>
+                </div>
+              </div>
+              {{/if}}
+           </div>
+         </div>
+       </div>
+     </div>
+     {{/each}}
+  </div>
+  {{else}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Товаров нет</th>
+      </tr>
+    </thead>
+  </table>
+  {{/if}}
+</div>
+
+
+

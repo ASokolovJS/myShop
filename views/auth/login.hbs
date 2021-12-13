@@ -1,0 +1,159 @@
+<div class="container">
+  <nav class="d-flex justify-content-center">
+    <div class="nav nav-pills mt-3" id="nav-tab" role="tablist">
+      <button
+        class="nav-link link-light mx-3"
+        id="login-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#login"
+        type="button"
+        role="tab"
+        aria-controls="login"
+        aria-selected="true"
+      >Вход</button>
+      <button
+        class="nav-link link-light"
+        id="register-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#register"
+        type="button"
+        role="tab"
+        aria-controls="register"
+        aria-selected="false"
+      >Регистрация</button>
+    </div>
+  </nav>
+
+  <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
+    <div
+      id="login"
+      class="tab-pane fade show active "
+      role="tabpanel"
+      aria-labelledby="login-tab"
+    >
+      <div class="card mb-5 p-2 mt-3">
+        <form action="/auth/login" method="POST">
+          {{#if errorLog}}
+            <p class="alert">{{errorLog}}</p>
+          {{/if}}
+          <h3 class="text-center">Войти в Магазин</h3>
+          <hr />
+          <div>
+            <label for="login" class="form-label">Логин</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mt-2">
+            <label for="password" class="form-label">Пароль</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <input type="hidden" name="_csrf" value={{csrf}} />
+          <div class="text-end">
+            <button
+              class="btn btn-primary mt-3 mb-3"
+              type="submit"
+            >Войти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="register"
+      class="tab-pane fade row"
+      role="tabpanel"
+      aria-labelledby="register-tab"
+    >
+      <div class="card mb-5 p-2 mt-3">
+        <form action="/auth/register" method="POST">
+          {{#if errorReg}}
+            <p class="alert">{{errorReg}}</p>
+          {{/if}}
+          <h3 class="text-center">Создать аккаунт</h3>
+          <hr />
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+            <input
+              id="rEmail"
+              name="email"
+              type="email"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Имя</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Телефон</label>
+            <input
+              id="phone"
+              name="phone"
+              type="number"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Адрес доставки</label>
+            <input
+              id="adress"
+              name="adress"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Пароль</label>
+            <input
+              id="rPassword"
+              name="password"
+              type="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Повторите пароль еще раз</label>
+            <input
+              id="confirm"
+              name="confirm"
+              type="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Введите промокод (Необязательно)</label>
+            <input id="promo" name="promo" type="text" class="form-control" />
+          </div>
+          <input type="hidden" name="_csrf" value={{csrf}} />
+          <div class="text-end">
+            <button
+              class="btn btn-primary mt-3 mb-3"
+              type="submit"
+            >Зарегистрироваться</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

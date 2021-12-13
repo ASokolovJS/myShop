@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card p-3 m-3">
+    <h2 class="text-center">{{product.title}}</h2> </span>
+    <form action="/products/edit" method="POST">
+      <div>
+        <label for="title">Наименование</label>
+        <input id="title" name="title" type="text" class="form-control" value="{{product.title}}" required />
+        <span class="helper-text" data-error="Введите название"></span>
+      </div>
+      <div class="mt-3">
+        <label for="price">Стоимость за кг</label>
+        <input
+          id="price"
+          name="price"
+          type="number"
+          class="form-control"
+          required
+          min="1"
+          value="{{product.price}}"
+        />
+        <span class="helper-text" data-error="Введите цену товара за кг"></span>
+      </div>
+       <div class="mt-3">
+        <label for="value">Вес в граммах</label>
+        <input
+          id="value"
+          name="value"
+          type="number"
+          class="form-control"
+          required
+          min="0"
+          value="{{product.value}}"
+        />
+        <span class="helper-text" data-error="Введите вес в граммах"></span>
+      </div>
+      <div class="mt-3 mb-3">
+        <label for="img">Фото товар</label>
+        <input id="img" name="img" type="text" class="form-control" value="{{product.img}}" required />
+        <span class="helper-text" data-error="Введите фото товар"></span>
+      </div>
+      <input type="hidden" name="_csrf" value="{{csrf}}" />
+      <input type="hidden" name="id" value="{{product.id}}" />
+      <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+    </form>
+    <form action="/products/remove" method="POST" class="formRemove">
+      <input type="hidden" name="_csrf" value="{{csrf}}" />
+      <input type="hidden" name="id" value="{{product.id}}" />
+      <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+  </div>
+</div>

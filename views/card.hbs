@@ -1,0 +1,70 @@
+<div class="container text-light">
+  <div id="card">
+    {{#if products.length}}
+      <table class="table text-light caption-top mt-5">
+        <thead>
+          <th>Название товара</th>
+          <th>Вес</th>
+          <th></th>
+        </thead>
+        <tbody>
+          {{#each products}}
+            <tr>
+              <td>{{title}}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-outline-light js-remove mx-2"
+                  data-id="{{id}}"
+                  data-csrf="{{@root.csrf}}"
+                >-</button>
+                {{productValue}}
+                гр
+                <button
+                  class="btn btn-sm btn-outline-light js-add ms-2"
+                  data-id="{{id}}"
+                  data-csrf="{{@root.csrf}}"
+                >+</button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-outline-light js-removeFull"
+                  data-id="{{id}}"
+                  data-csrf="{{@root.csrf}}"
+                >Удалить</button>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <p>
+        <strong>Цена: </strong>
+        <span class="price">{{price}}</span>
+      </p>
+      <div class="row">
+        <div class="col">
+          <form action="/orders" method="POST">
+            <input type="hidden" name="_csrf" value={{csrf}} />
+            <button type="submit" class="btn btn-outline-light mb-3">Оформить заказ</button>
+          </form>
+        </div>
+        <div class="col-sm-3 text-end">
+          <form action="/card/promo" method="post">
+            <input type="hidden" name="_csrf" value={{csrf}} />
+            <input class="form-control" type="text" name="promo" value="" placeholder="Введите промокод(не обязательно)">
+            <button class="btn btn-outline-light mt-3">Применить</button>
+          </form>
+        </div>
+      </div>
+    {{else}}
+      <div class="m-5 text-center">
+        <table class="table text-light">
+          <thead>
+            <tr>
+              <th>Товаров нет</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    {{/if}}
+  </div>
+</div>

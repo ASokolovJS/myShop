@@ -1,0 +1,107 @@
+<navbar>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="text-center">
+      <img src="/img/logo-2.png" alt="Logotype site" />
+    </div>
+    <button
+      class="navbar-toggler navbar-dark"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSite"
+      aria-controls="navbarSite"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="row collapse navbar-collapse mt-5" id="navbarSite">
+      <div class="col-sm-1">
+        {{#if isHome}}
+          <a class="nav-link active link-light" href="/">Главная</a>
+        {{else}}
+          <a class="nav-link navbar-text link-light" href="/">Главная</a>
+        {{/if}}
+      </div>
+      <div class="col-sm-1">
+        {{#if isProduct}}
+          <a class="nav-link active link-light" href="/products">Товары</a>
+        {{else}}
+          <a class="nav-link navbar-text link-light" href="/products">Товары</a>
+        {{/if}}
+      </div>
+      <div class="col-sm-1">
+        <nav class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle navbar-text link-light"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >О нас</a>
+          <ul class="dropdown-menu">
+            {{#if isDelivery}}
+              <li><a class="dropdown-item" href="/delivery">Доставка</a></li>
+            {{else}}
+              <li><a class="dropdown-item" href="/delivery">Доставка</a></li>
+            {{/if}}
+            <li><a class="dropdown-item" href="/details">Реквизиты</a></li>
+            <li><a class="dropdown-item" href="/payment">Способы оплаты</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a
+                class="dropdown-item"
+                href="/payment/info"
+              >Информация</a></li>
+          </ul>
+        </nav>
+      </div>
+      {{#if isAuth}}
+        <div class="col-sm">
+          {{#if isCard}}
+            <a class="nav-link active link-light" href="/card">Корзина</a>
+          {{else}}
+            <a class="nav-link navbar-text link-light" href="/card">Корзина
+              {{#if productsCart}}
+                <span class="badge">{{productsCart.length}}</span>
+              {{/if}}
+            </a>
+          {{/if}}
+        </div>
+        <div class="col-sm-1 text-end">
+          <nav class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle navbar-text link-light"
+              id="profile"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >Профиль</a>
+            <ul class="dropdown-menu" aria-labelledby="profile">
+              <li><a class="dropdown-item" href="/profile">Обо мне</a></li>
+              <li><a class="dropdown-item" href="/orders">Заказы</a></li>
+              {{#if isAdmin}}
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/panel">Панель Администратора</a></li>
+              {{/if}}
+            </ul>
+          </nav>
+        </div>
+        <div class="col-sm-1 text-center">
+          <a
+            class="nav-link navbar-text link-light"
+            href="/auth/logout"
+          >Выйти</a>
+        </div>
+      {{else}}
+        <div class="col-sm-1 text-center">
+          {{#if isLogin}}
+            <a class="nav-link active link-light" href="/auth/login">Войти</a>
+          {{else}}
+            <a
+              class="nav-link navbar-text link-light"
+              href="/auth/login"
+            >Войти</a>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  </nav>
+</navbar>
